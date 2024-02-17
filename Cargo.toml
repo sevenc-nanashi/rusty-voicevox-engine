@@ -1,0 +1,18 @@
+[package]
+name = "rust-engine"
+version = "0.1.0"
+edition = "2021"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+anyhow = "1.0.79"
+axum = "0.7.4"
+clap = { version = "4.5.0", features = ["derive"] }
+http = "1.0.0"
+serde = { version = "1.0.196", features = ["derive"] }
+tokio = { version = "1.36.0", features = ["rt-multi-thread"] }
+tower-http = { version = "0.5.1", features = ["trace", "cors"] }
+tracing = "0.1.40"
+tracing-subscriber = "0.3.18"
+voicevox_core-rs = { git = "https://github.com/sevenc-nanashi/voicevox_core-rs.git", branch = "main" }

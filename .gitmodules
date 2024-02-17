@@ -1,0 +1,3 @@
+[submodule "vvms"]
+	path = vvms
+	url = https://github.com/VOICEVOX/voicevox_fat_resource
