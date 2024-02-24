@@ -1,3 +1,3 @@
-[submodule "vvms"]
-	path = vvms
+[submodule "vendored/voicevox_fat_resource"]
+	path = vendored/voicevox_fat_resource
 	url = https://github.com/VOICEVOX/voicevox_fat_resource
