@@ -15,6 +15,7 @@ axum-macros = "0.4.1"
 base64 = "0.21.7"
 clap = { version = "4.5.0", features = ["derive"] }
 duplicate = "1.0.0"
+futures-util = "0.3.30"
 http = "1.0.0"
 image = "0.24.9"
 imageproc = "0.23.0"

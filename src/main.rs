@@ -130,8 +130,8 @@ async fn main() {
     info!("Initializing managers...");
     let vvm_manager = VvmManager::new().await;
     VVM_MANAGER.get_or_init(|| Arc::new(Mutex::new(vvm_manager)));
-    let resource_manager = ResourceManager::new().await;
-    RESOURCE_MANAGER.get_or_init(|| Arc::new(Mutex::new(resource_manager)));
+    // let resource_manager = ResourceManager::new().await;
+    // RESOURCE_MANAGER.get_or_init(|| Arc::new(Mutex::new(resource_manager)));
 
     routes::init_synthesizer(opts.use_gpu, opts.cpu_num_threads).await;
 

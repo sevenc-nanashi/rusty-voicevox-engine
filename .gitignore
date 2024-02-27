@@ -1,3 +1,6 @@
 /target
-/vendored
+/vendored/*
 !/vendored/.gitkeep
+/generated/*
+!/generated/.gitkeep
+

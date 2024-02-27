@@ -15,6 +15,11 @@ pub struct ResourceManager {
 }
 
 pub static RESOURCE_MANAGER: OnceLock<Arc<Mutex<ResourceManager>>> = OnceLock::new();
+pub static GENERATE_PATH: &str = if cfg!(feature = "release") {
+    "./generated/images"
+} else {
+    concat!(env!("CARGO_MANIFEST_DIR"), "/generated/images")
+};
 static BORDER: i32 = 5;
 
 static FONT_PATH: &str = if cfg!(feature = "release") {
@@ -46,6 +51,10 @@ impl ResourceManager {
 
         let mut portrait_images = HashMap::new();
         let mut style_icons = HashMap::new();
+
+        if !std::path::Path::new(GENERATE_PATH).exists() {
+            std::fs::create_dir_all(GENERATE_PATH).unwrap();
+        }
 
         for speaker in &speakers {
             info!("Creating image for: {}", speaker.name);
@@ -92,6 +101,10 @@ impl ResourceManager {
             let name_y = 250 - name_size.1 / 2;
             imageproc::drawing::draw_text_mut(&mut portrait, color, name_x, name_y, scale, &font, &speaker.name);
 
+            portrait
+                .save(format!("{}/{}.png", GENERATE_PATH, speaker.speaker_uuid))
+                .unwrap();
+
             portrait_images.insert(speaker.speaker_uuid.clone(), portrait);
 
             for style in &speaker.styles {
@@ -108,6 +121,16 @@ impl ResourceManager {
                 let x = 128 - size.0 / 2;
                 let y = 128 - size.1 / 2 - 32;
                 imageproc::drawing::draw_text_mut(&mut icon, color, x, y, scale, &font, &style.id().to_string());
+
+                icon.save(format!("{}/{}-{}.png", GENERATE_PATH, speaker.speaker_uuid, style.id()))
+                    .unwrap();
+
+                for i in 0..2 {
+                    std::fs::write(
+                        format!("{}/{}-{}-{}.wav", GENERATE_PATH, speaker.speaker_uuid, style.id(), i),
+                        "",
+                    ).unwrap();
+                }
 
                 style_icons.insert(style.id(), icon);
             }

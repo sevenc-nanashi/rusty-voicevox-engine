@@ -9,6 +9,10 @@ pub fn image_to_base64(image: &image::RgbaImage) -> String {
     base64::engine::general_purpose::STANDARD_NO_PAD.encode(&buf)
 }
 
+pub fn binary_to_base64(binary: &[u8]) -> String {
+    base64::engine::general_purpose::STANDARD_NO_PAD.encode(binary)
+}
+
 pub fn process_dir() -> std::path::PathBuf {
     std::path::PathBuf::from(process_path::get_executable_path().unwrap().parent().unwrap())
 }
